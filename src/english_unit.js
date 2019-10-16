@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 
 import type {numerical} from "abstract-numerical-unit";
 
@@ -22,16 +22,24 @@ module.exports = class EnglishUnit extends AbstractNumericalUnit {
     );
   }
 
-  isLastOfUnit(): boolean {
+  static describe(numerical: numerical): string {
+    return self.fromNumerical(numerical).toString();
+  }
+
+  static describeRatio(numerator: numerical, denominator: numerical): string {
+    // const a = 
+  }
+
+  inSameUnitAsNext(): boolean {
     if (this.next == null) {
-      return true;
+      return false;
     }
 
-    return Math.floor(this.power / 3) !== Math.floor(this.next.power / 3);
+    return Math.floor(this.power / 3) === Math.floor(this.next.power / 3);
   }
 
   getUnit(): ?string {
-    if (!this.isLastOfUnit()) {
+    if (this.inSameUnitAsNext()) {
       return null;
     }
     switch (Math.floor(this.power / 3)) {
@@ -134,18 +142,28 @@ module.exports = class EnglishUnit extends AbstractNumericalUnit {
 
   toString(): string {
     let string = this.getLabel();
+    const modulus = this.power % 3;
+
     if (this.power % 3 === 2) {
       string += " Hundred";
     }
+
     if (this.getUnit() !== null) {
       string += ` ${String(this.getUnit())}`;
     }
+
+    if (this.next != null && modulus === 1 && this.next.power + 1 === this.power) {
+      return `${string}-${this.next.toString()}`
+    }
+
+    if (this.next != null && modulus === 2 && this.inSameUnitAsNext()) {
+      return `${string} and ${this.next.toString()}`
+    }
+
     if (this.next != null) {
-      if (this.power % 3 === 2) {
-        string += " and";
-      }
       string += ` ${this.next.toString()}`;
     }
+
     return string;
   }
 };
