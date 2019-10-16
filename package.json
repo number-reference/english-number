@@ -1,0 +1,32 @@
+{
+  "name": "english-numerical-unit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/english_unit.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "abstract-numerical-unit": "^1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/timeemit/english-numerical-unit.git"
+  },
+  "keywords": [
+    "number",
+    "english"
+  ],
+  "author": "Liam Norris",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/timeemit/english-numerical-unit/issues"
+  },
+  "homepage": "https://github.com/timeemit/english-numerical-unit#readme"
+}
