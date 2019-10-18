@@ -1,5 +1,5 @@
 {
-  "name": "english-numerical-unit",
+  "name": "english-number",
   "version": "1.0.0",
   "description": "",
   "main": "lib/english_unit.js",
