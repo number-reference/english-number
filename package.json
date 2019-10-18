@@ -12,13 +12,13 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "node lib/english_unit_test.js",
+    "test": "node lib/english_number_test.js",
     "flow": "flow",
     "prepublish": "flow-remove-types src/ -d lib/"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/timeemit/english-numerical-unit.git"
+    "url": "git+ssh://git@github.com/number-reference/english-number.git"
   },
   "keywords": [
     "number",
@@ -27,7 +27,7 @@
   "author": "Liam Norris",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/timeemit/english-numerical-unit/issues"
+    "url": "https://github.com/number-reference/english-number/issues"
   },
-  "homepage": "https://github.com/timeemit/english-numerical-unit#readme"
+  "homepage": "https://github.com/number-reference/english-number#readme"
 }
