@@ -1,36 +1,36 @@
-/*       */
+/* @flow */
 
-                                                       
+import type {numerical} from "abstract-numerical-unit";
 
 const AbstractNumericalUnit = require('abstract-numerical-unit');
 
-module.exports = class EnglishUnit extends AbstractNumericalUnit {
+module.exports = class EnglishNumber extends AbstractNumericalUnit {
 
-  constructor(power           , value           , next              ) {
+  constructor(power: numerical, value: numerical, next: ?EnglishNumber) {
     super(power, value, next);
   }
 
-  static fromNumerical(numerical           )              {
-    return EnglishUnit.fromAbstract(super.fromNumerical(numerical));
+  static fromNumerical(numerical: numerical): EnglishNumber {
+    return EnglishNumber.fromAbstract(super.fromNumerical(numerical));
   }
 
-  static fromAbstract(abstract_unit                       )              {
-    return new EnglishUnit(
+  static fromAbstract(abstract_unit: AbstractNumericalUnit): EnglishNumber {
+    return new EnglishNumber(
       abstract_unit.power,
       abstract_unit.value,
-      abstract_unit.next == null ? null : EnglishUnit.fromAbstract(abstract_unit.next),
+      abstract_unit.next == null ? null : EnglishNumber.fromAbstract(abstract_unit.next),
     );
   }
 
-  static describe(numerical           )         {
+  static describe(numerical: numerical): string {
     return self.fromNumerical(numerical).toString();
   }
 
-  static describeRatio(numerator           , denominator           )         {
+  static describeRatio(numerator: numerical, denominator: numerical): string {
     // const a = 
   }
 
-  inSameUnitAsNext()          {
+  inSameUnitAsNext(): boolean {
     if (this.next == null) {
       return false;
     }
@@ -38,7 +38,7 @@ module.exports = class EnglishUnit extends AbstractNumericalUnit {
     return Math.floor(this.power / 3) === Math.floor(this.next.power / 3);
   }
 
-  getUnit()          {
+  getUnit(): ?string {
     if (this.inSameUnitAsNext()) {
       return null;
     }
@@ -60,7 +60,7 @@ module.exports = class EnglishUnit extends AbstractNumericalUnit {
     }
   }
 
-  getLabel()         {
+  getLabel(): string {
     if (this.power % 3 === 1) {
       switch (this.value) {
         case 0:
@@ -140,7 +140,7 @@ module.exports = class EnglishUnit extends AbstractNumericalUnit {
     }
   }
 
-  toString()         {
+  toString(): string {
     let string = this.getLabel();
     const modulus = this.power % 3;
 
