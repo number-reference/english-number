@@ -24,6 +24,14 @@ const AbstractNumericalUnit = require('abstract-numerical-unit');
 AbstractNumericalUnit.fromNumerical("10.23")
 ```
 
+## Tests
+
+Using the [Jasmine](https://jasmine.github.io)
+
+```
+npm test
+```
+
 ## Motivation & Related Work
 
 [Number Reference](http://www.number-reference.com) is an online encyclopedia
