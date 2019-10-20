@@ -1,10 +1,62 @@
 /* @flow */
+'strict';
 
 import type {numerical} from "abstract-numerical-unit";
 
 const AbstractNumericalUnit = require('abstract-numerical-unit');
 
+const IRREGULAR_ORDINALS: {[string]: string} = {
+  "One": "First",
+  "Two": "Second",
+  "Three": "Third",
+  "Five": "Fifth",
+  "Eight": "Eighth",
+  "Nine": "Ninth",
+  "Twelve": "Twelfth",
+};
+
+const UNITS: string[] = [
+  "Zero",
+  "One",
+  "Two",
+  "Three",
+  "Four",
+  "Five",
+  "Six",
+  "Seven",
+  "Eight",
+  "Nine",
+];
+
+// Source: https://en.wikipedia.org/wiki/Names_of_large_numbers
+const SCALES: string[] = [
+  "Thousand",
+  "Million",
+  "Billion",
+  "Trillion",
+  "Quadrillion",
+  "Quintillion",
+  "Sextillion",
+  "Octillion",
+  "Nonillion",
+  "Decillion",
+  "Undecillion",
+  "Duodecillion",
+  "Tredecillion",
+  "Quattuordecillion",
+  "Quindecillion",
+  "Sexdecillion",
+  "Septendecillion",
+  "Octodecillion",
+  "Novemdecillion",
+  "Vigintillion",
+]
+
+/*
+ * Source: https://en.wikipedia.org/wiki/English_numerals
+ */
 module.exports = class EnglishNumber extends AbstractNumericalUnit {
+  #name: string;
 
   constructor(power: numerical, value: numerical, next: ?EnglishNumber) {
     super(power, value, next);
@@ -15,19 +67,26 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
   }
 
   static fromAbstract(abstract_unit: AbstractNumericalUnit): EnglishNumber {
-    return new EnglishNumber(
+    const number = new EnglishNumber(
       abstract_unit.power,
       abstract_unit.value,
       abstract_unit.next == null ? null : EnglishNumber.fromAbstract(abstract_unit.next),
-    );
+    )
+    number.setNames();
+    return number;
   }
 
-  static describe(numerical: numerical): string {
-    return self.fromNumerical(numerical).toString();
+  static name(numerical: numerical): string {
+    return EnglishNumber.fromNumerical(numerical).toString();
   }
 
-  static describeRatio(numerator: numerical, denominator: numerical): string {
-    // const a = 
+  static order(numerical: numerical): string {
+    const number = EnglishNumber.fromNumerical(numerical);
+    return number.getLabel(true);
+  }
+
+  static ratio(numerator: numerical, denominator: numerical): string {
+    return "a";
   }
 
   inSameUnitAsNext(): boolean {
@@ -38,132 +97,127 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
     return Math.floor(this.power / 3) === Math.floor(this.next.power / 3);
   }
 
-  getUnit(): ?string {
+  getUnit(): string {
+    return UNITS[this.value];
+  }
+
+  getScale(): ?string {
     if (this.inSameUnitAsNext()) {
       return null;
     }
-    switch (Math.floor(this.power / 3)) {
-      case 1:
-        return "Thousand";
-      case 2:
-        return "Million";
-      case 3:
-        return "Billion";
-      case 4:
-        return "Trillion";
-      case 5:
-        return "Quadrillion";
-      case 6:
-        return "Quintillion";
-      default:
-        return null;
-    }
+    const scale = SCALES[Math.floor(this.power / 3) - 1];
+    return (scale == null) ? null : scale;
   }
 
-  getLabel(): string {
+  setNames(): self {
     if (this.power % 3 === 1) {
-      switch (this.value) {
-        case 0:
-          return "";
-        case 2:
-          return "Twenty";
-        case 3:
-          return "Thirty";
-        case 4:
-          return "Forty";
-        case 5:
-          return "Fifty";
-        case 6:
-          return "Sixty";
-        case 7:
-          return "Seventy";
-        case 8:
-          return "Eighty";
-        case 9:
-          return "Ninety";
-        case 1:
-          if (this.next == null || this.next.power + 1 !== this.power) {
-            return "Ten";
-          }
-          const next_value = this.next.value;
-          this.next = this.next.next;
-          switch (next_value) {
-            case 0:
-              return "Ten";
-            case 1:
-              return "Eleven";
-            case 2:
-              return "Twelve";
-            case 3:
-              return "Thirteen";
-            case 4:
-              return "Fourteen";
-            case 5:
-              return "Fifteen";
-            case 6:
-              return "Sixteen";
-            case 7:
-              return "Seventeen";
-            case 8:
-              return "Eightteen";
-            case 9:
-              return "Nineteen";
-            default:
-              return "";
-          }
-        default:
-          return "";
+      let value = this.value;
+      if (this.next != null && this.value === 1 && this.next.power + 1 === this.power) {
+        value = 10 * value + this.next.value;
+        this.value = this.next.value;
+        this.next = this.next.next;
       }
+      switch (value) {
+        case 1:
+          this.name = "Ten";
+          break;
+        case 2:
+          this.name = "Twenty";
+          break;
+        case 3:
+          this.name = "Thirty";
+          break;
+        case 4:
+          this.name = "Forty";
+          break;
+        case 5:
+          this.name = "Fifty";
+          break;
+        case 6:
+          this.name = "Sixty";
+          break;
+        case 7:
+          this.name = "Seventy";
+          break;
+        case 8:
+          this.name = "Eighty";
+          break;
+        case 9:
+          this.name = "Ninety";
+          break;
+        case 11:
+          this.name = "Eleven";
+          break;
+        case 12:
+          this.name = "Twelve";
+          break;
+        case 13:
+          this.name = "Thirteen";
+          break;
+        case 15:
+          this.name = "Fifteen";
+          break;
+        default:
+          this.name = `${this.getUnit()}teen`;
+      }
+    } else {
+      this.name = this.getUnit();
     }
+    return this;
+  }
 
-    switch (this.value) {
-      case 1:
-        return "One";
-      case 2:
-        return "Two";
-      case 3:
-        return "Three";
-      case 4:
-        return "Four";
-      case 5:
-        return "Five";
-      case 6:
-        return "Six";
-      case 7:
-        return "Seven";
-      case 8:
-        return "Eight";
-      case 9:
-        return "Nine";
-      default:
-        return "Zero";
+  static ordinalize(string: string): string {
+    if (string in IRREGULAR_ORDINALS) {
+      return IRREGULAR_ORDINALS[string];
+    } else {
+      if (string.slice(-1) === "y") {
+        return string.slice(0, -1) + "ieth";  // e.g. Eighty --> Eightieth
+      } else {
+        return string + "th";  // e.g. Regular ordinalization
+      }
     }
   }
 
   toString(): string {
-    let string = this.getLabel();
+    return this.getLabel(false);
+  }
+
+  getLabel(ordinal: boolean): string {
+    let string = this.name;
     const modulus = this.power % 3;
 
-    if (this.power % 3 === 2) {
+    if (modulus === 2) {
       string += " Hundred";
     }
 
-    if (this.getUnit() !== null) {
-      string += ` ${String(this.getUnit())}`;
+    if (this.getScale() !== null) {
+      string += ` ${String(this.getScale())}`;
+    }
+
+    if (ordinal && this.next == null) {
+      return EnglishNumber.ordinalize(string);
     }
 
     if (this.next != null && modulus === 1 && this.next.power + 1 === this.power) {
-      return `${string}-${this.next.toString()}`
+      return `${string}-${this.next.getLabel(ordinal)}`
     }
 
-    if (this.next != null && modulus === 2 && this.inSameUnitAsNext()) {
-      return `${string} and ${this.next.toString()}`
+    if (this.next != null && this.next.power % 3 <= 1) {
+      return `${string} and ${this.next.getLabel(ordinal)}`
     }
 
     if (this.next != null) {
-      string += ` ${this.next.toString()}`;
+      string += ` ${this.next.getLabel(ordinal)}`;
     }
 
     return string;
+  }
+
+  separate(): [self, self] {
+    let pointer = this;
+    while (pointer.next != null && pointer.power >= 0) {
+      pointer = pointer.next;
+    }
+    return [this, pointer.next];
   }
 };
