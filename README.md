@@ -33,6 +33,14 @@ Or, if you're working with ratios and want to avoid repeating decimals:
 EnglishNumber.ratio(10, 3); // "Ten Thirds"
 ```
 
+## Tests
+
+More than 200 [Jasmine](https://jasmine.github.io) specs that handle the many irregularities of the English language
+
+```
+npm test
+```
+
 ## Limitations
 
 Support is limited to numbers not greater in magnitude than one vigintillion (+/- 10^63) and with resolutoin limited to the vigintillionth (10^-63).
