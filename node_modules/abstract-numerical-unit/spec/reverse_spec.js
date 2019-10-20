@@ -10,7 +10,7 @@ const assertions = [
 describe("Invert", () => {
   assertions.forEach(({input, expected}) => {
     it(`Handles input ${input}`, () => {
-      const actual = Unit.fromNumerical(input).invert();
+      const actual = Unit.fromNumerical(input).reverse();
       assert.deepEqual(actual, expected);
     });
   });

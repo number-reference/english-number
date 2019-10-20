@@ -10,6 +10,8 @@ A very natural means of converting numerical representations into natural langua
 npm install --save integer-to-cardinal-english
 ```
 
+NOTE: `abstract-numerical-unit` has no production dependencies.
+
 ## Usage
 
 ```node
