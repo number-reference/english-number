@@ -30,6 +30,7 @@ EnglishNumber.order(208); // => "Two Hundredth and Eighth"
 Or, if you're working with ratios and want to avoid repeating decimals:
 
 ```
+EnglishNumber.ratio(7, 2); // "Seven Halves"
 EnglishNumber.ratio(10, 3); // "Ten Thirds"
 ```
 

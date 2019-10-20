@@ -1,9 +1,10 @@
 /* @flow */
-'strict';
+"strict";
 
 import type {numerical} from "abstract-numerical-unit";
 
 const AbstractNumericalUnit = require('abstract-numerical-unit');
+const assert = require("assert");
 
 const IRREGULAR_ORDINALS: {[string]: string} = {
   "One": "First",
@@ -211,6 +212,19 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
     }
 
     return string;
+  }
+
+  getDenominator(plural: boolean): string {
+    if (this.power === 0 && this.value === 2 && this.next == null) {
+      return plural ? "Halves" : "Half";
+    } else if (this.power === 0 && this.value === 4 && this.next == null) {
+      return `Quarter${plural ? "s" : ""}`;
+    }
+    if (this.getScale() === null) {
+      return `${this.getLabel(true)}${plural ? "s" : ""}`;
+    } else {
+      return `${this.getLabel(true)}${plural ? "s" : ""}`;
+    }
   }
 
   separate(): [self, self] {
