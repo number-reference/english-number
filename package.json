@@ -8,13 +8,18 @@
     "src": "src"
   },
   "dependencies": {
-    "abstract-numerical-unit": "^1.1.0"
+    "abstract-numerical-unit": "^1.3.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "flow-bin": "^0.109.0",
+    "flow-remove-types": "^2.109.0",
+    "jasmine": "^3.5.0"
+  },
   "scripts": {
-    "test": "node lib/english_number_test.js",
+    "build": "flow-remove-types src/ -d lib/",
+    "test": "npm run build && jasmine",
     "flow": "flow",
-    "prepublish": "flow-remove-types src/ -d lib/"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
