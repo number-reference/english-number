@@ -1,6 +1,6 @@
 # Convert Numbers into English
 
-This is an iteration over [an inferior package](https://github.com/number-reference/number-to-english) that relies on a well-crafted stack structure that abstracts much more generically across languages
+Using a well-crafted stack structure that abstracts generically across languages.
 
 ## Installation
 
@@ -30,13 +30,15 @@ EnglishNumber.order(208); // => "Two Hundredth and Eighth"
 Or, if you're working with ratios and want to avoid repeating decimals:
 
 ```
-EnglishNumber.describeRatio(10, 3); // "Ten Thirds"
+EnglishNumber.ratio(10, 3); // "Ten Thirds"
 ```
 
 ## Limitations
 
-Support is limited to numbers not greater in magnitude than one sextillion (+/- 10^21) and with resolutoin limited to the sextillionth (10^-21).
+Support is limited to numbers not greater in magnitude than one vigintillion (+/- 10^63) and with resolutoin limited to the vigintillionth (10^-63).
 
 # Motivation & Related Work
 
 [Number Reference](www.number-reference.com) is an online encyclopedia of calculations that relies heavily on this and related packages.
+
+This is an iteration over [an inferior package](https://github.com/number-reference/number-to-english).
