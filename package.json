@@ -20,7 +20,7 @@
     "test": "jasmine",
     "flow": "flow",
     "pretest": "npm run build",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build && npm test"
   },
   "repository": {
     "type": "git",
