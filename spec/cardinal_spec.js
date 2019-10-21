@@ -1,7 +1,6 @@
 "use strict";
 
 const EnglishNumber = require("../lib/english_number");
-const assert = require("assert");
 
 const cardinal_assertions = [
   [0, "Zero"],
@@ -60,13 +59,13 @@ describe("Cardinal numbers", () => {
     it(`converts the number ${assertion[0]}`, () => {
       const actual = EnglishNumber.nameOf(assertion[0]);
       const expected = assertion[1];
-      assert.deepStrictEqual(actual, expected);
+      expect(actual).toEqual(expected);
     });
 
     it(`converts the string "${assertion[0]}"`, () => {
       const actual = EnglishNumber.nameOf(assertion[0].toString());
       const expected = assertion[1];
-      assert.deepStrictEqual(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 });

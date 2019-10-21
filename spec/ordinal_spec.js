@@ -1,7 +1,6 @@
 "use strict";
 
 const EnglishNumber = require("../lib/english_number");
-const assert = require("assert");
 
 const ordinal_assertions = [
   [0, "Zeroth"],
@@ -52,13 +51,13 @@ describe("Ordinal numbers", () => {
     it(`converts the number ${assertion[0]}`, () => {
       const actual = EnglishNumber.orderOf(assertion[0]);
       const expected = assertion[1];
-      assert.deepStrictEqual(actual, expected);
+      expect(actual).toEqual(expected);
     });
 
     it(`converts the string "${assertion[0]}"`, () => {
       const actual = EnglishNumber.orderOf(assertion[0].toString());
       const expected = assertion[1];
-      assert.deepStrictEqual(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 });

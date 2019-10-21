@@ -1,7 +1,6 @@
 "use strict";
 
 const EnglishNumber = require("../lib/english_number");
-const assert = require("assert");
 
 const ratio_assertions = [
   // Ratio
@@ -21,6 +20,7 @@ const ratio_assertions = [
   [[5, 4], "Five Quarters"],
   [[1, 10], "One Tenth"],
   [[2, 12], "Two Twelfths"],
+  [[3, 25], "Three Twenty-Fifths"],
   [[1, 100], "One One Hundredth"],
   [[1, 200], "One Two Hundredth"],
   [[1, 1000], "One One Thousandth"],
@@ -32,7 +32,7 @@ describe("Ratios", () => {
     it(`converts the ratio ${assertion[0][0]}/${assertion[0][1]}`, () => {
       const actual = EnglishNumber.nameOfRatio(...assertion[0]);
       const expected = assertion[1];
-      assert.deepStrictEqual(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 });
