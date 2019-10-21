@@ -190,10 +190,6 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
     }
   }
 
-  toString(): string {
-    return this.getLabel(false);
-  }
-
   getLabel(ordinal: boolean): string {
     let string = this.word;
     const modulus = this.power % 3;
