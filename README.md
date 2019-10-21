@@ -44,7 +44,7 @@ npm test
 
 ## Limitations
 
-Support is limited to numbers not greater in magnitude than one vigintillion (+/- 10^63) and with resolutoin limited to the vigintillionth (10^-63).
+Support is limited to numbers not greater in magnitude than one vigintillion (+/- 10^63) and with resolution limited to the vigintillionth (10^-63).
 
 # Motivation & Related Work
 
