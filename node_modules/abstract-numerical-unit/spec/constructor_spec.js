@@ -1,6 +1,5 @@
 "use strict";
 
-const assert = require("assert");
 const Unit = require("../lib/abstract_numerical_unit");
 
 const assertions = [
@@ -31,20 +30,19 @@ const assertions = [
   {input: 11.11, expected: new Unit(1, 1, new Unit(0, 1, new Unit(-1, 1, new Unit(-2, 1))))},
   {input: 101, expected: new Unit(2, 1, new Unit(0, 1))},
   {input: 101.01, expected: new Unit(2, 1, new Unit(0, 1, new Unit(-2, 1)))},
-  {input: 101.1, expected: new Unit(2, 1, new Unit(0, 1, new Unit(-1, 1)))},
+  {input: 102.3, expected: new Unit(2, 1, new Unit(0, 2, new Unit(-1, 3)))},
 ];
 
 describe("Constructor", () => {
   assertions.forEach(({input, expected}) => {
     it(`Handles float input ${input}`, () => {
       const actual = Unit.fromNumerical(input);
-      assert.deepEqual(actual, expected);
+      expect(actual).toEqual(expected);
     });
+
     it(`Handles string input "${input}"`, () => {
       const actual = Unit.fromNumerical(input.toString());
-      assert.deepEqual(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 });
-
-console.log('All tests passsed');

@@ -8,7 +8,7 @@
     "src": "src"
   },
   "dependencies": {
-    "abstract-numerical-unit": "^1.4.0"
+    "abstract-numerical-unit": "^1.4.2"
   },
   "devDependencies": {
     "flow-bin": "^0.109.0",
