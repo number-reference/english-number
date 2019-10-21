@@ -17,21 +17,21 @@ const EnglishNumber = require('english-number');
 Pass any decimal representation of a number:
 
 ```
-EnglishNumber.name(1521.12); // => "One Thousand Five Hundred and Twenty-One and Twelve Hundredths"
-EnglishNumber.name("40001.7"); // => "Forty Thousand One and Seven Tenths"
+EnglishNumber.nameOf(1521.12); // => "One Thousand Five Hundred and Twenty-One plus Twelve Hundredths"
+EnglishNumber.nameOf("40001.7"); // => "Forty Thousand One plus Seven Tenths"
 ```
 
 Count off with `order()`
 
 ```
-EnglishNumber.order(208); // => "Two Hundredth and Eighth"
+EnglishNumber.orderOf(208); // => "Two Hundredth and Eighth"
 ```
 
 Or, if you're working with ratios and want to avoid repeating decimals:
 
 ```
-EnglishNumber.ratio(7, 2); // "Seven Halves"
-EnglishNumber.ratio(10, 3); // "Ten Thirds"
+EnglishNumber.nameOfRatio(7, 2); // "Seven Halves"
+EnglishNumber.nameOfRatio(10, 3); // "Ten Thirds"
 ```
 
 ## Tests

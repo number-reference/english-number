@@ -30,7 +30,7 @@ const ratio_assertions = [
 describe("Ratios", () => {
   ratio_assertions.forEach((assertion) => {
     it(`converts the ratio ${assertion[0][0]}/${assertion[0][1]}`, () => {
-      const actual = EnglishNumber.ratio(...assertion[0]);
+      const actual = EnglishNumber.nameOfRatio(...assertion[0]);
       const expected = assertion[1];
       assert.deepStrictEqual(actual, expected);
     });

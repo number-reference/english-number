@@ -63,15 +63,15 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
     return super.fromNumerical(numerical).setNames();
   }
 
-  static name(numerical: numerical): string {
+  static nameOf(numerical: numerical): string {
     return EnglishNumber.fromNumerical(numerical).toString();
   }
 
-  static order(numerical: numerical): string {
+  static orderOf(numerical: numerical): string {
     return EnglishNumber.fromNumerical(numerical).getLabel(true);
   }
 
-  static ratio(numerator_numerical: numerical, denominator_numerical: numerical): string {
+  static nameOfRatio(numerator_numerical: numerical, denominator_numerical: numerical): string {
     const n = Number(numerator_numerical);
     const d = Number(denominator_numerical);
     const numerator = this.fromNumerical(numerator_numerical);

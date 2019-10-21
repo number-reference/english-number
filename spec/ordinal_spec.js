@@ -50,13 +50,13 @@ const ordinal_assertions = [
 describe("Ordinal numbers", () => {
   ordinal_assertions.forEach((assertion) => {
     it(`converts the number ${assertion[0]}`, () => {
-      const actual = EnglishNumber.order(assertion[0]);
+      const actual = EnglishNumber.orderOf(assertion[0]);
       const expected = assertion[1];
       assert.deepStrictEqual(actual, expected);
     });
 
     it(`converts the string "${assertion[0]}"`, () => {
-      const actual = EnglishNumber.order(assertion[0].toString());
+      const actual = EnglishNumber.orderOf(assertion[0].toString());
       const expected = assertion[1];
       assert.deepStrictEqual(actual, expected);
     });

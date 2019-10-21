@@ -58,13 +58,13 @@ const cardinal_assertions = [
 describe("Cardinal numbers", () => {
   cardinal_assertions.forEach((assertion) => {
     it(`converts the number ${assertion[0]}`, () => {
-      const actual = EnglishNumber.name(assertion[0]);
+      const actual = EnglishNumber.nameOf(assertion[0]);
       const expected = assertion[1];
       assert.deepStrictEqual(actual, expected);
     });
 
     it(`converts the string "${assertion[0]}"`, () => {
-      const actual = EnglishNumber.name(assertion[0].toString());
+      const actual = EnglishNumber.nameOf(assertion[0].toString());
       const expected = assertion[1];
       assert.deepStrictEqual(actual, expected);
     });
