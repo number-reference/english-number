@@ -58,22 +58,8 @@ const SCALES: string[] = [
 module.exports = class EnglishNumber extends AbstractNumericalUnit {
   #name: string;
 
-  constructor(power: numerical, value: numerical, next: ?EnglishNumber) {
-    super(power, value, next);
-  }
-
-  static fromNumerical(numerical: numerical): EnglishNumber {
-    return EnglishNumber.fromAbstract(super.fromNumerical(numerical));
-  }
-
-  static fromAbstract(abstract_unit: AbstractNumericalUnit): EnglishNumber {
-    const number = new EnglishNumber(
-      abstract_unit.power,
-      abstract_unit.value,
-      abstract_unit.next == null ? null : EnglishNumber.fromAbstract(abstract_unit.next),
-    )
-    number.setNames();
-    return number;
+  static fromNumerical(numerical: numerical): this {
+    return super.fromNumerical(numerical).setNames();
   }
 
   static name(numerical: numerical): string {
@@ -81,12 +67,17 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
   }
 
   static order(numerical: numerical): string {
-    const number = EnglishNumber.fromNumerical(numerical);
-    return number.getLabel(true);
+    return EnglishNumber.fromNumerical(numerical).getLabel(true);
   }
 
-  static ratio(numerator: numerical, denominator: numerical): string {
-    return "a";
+  static ratio(numerator_numerical: numerical, denominator_numerical: numerical): string {
+    const n = Number(numerator_numerical);
+    const d = Number(denominator_numerical);
+    const numerator = this.fromNumerical(numerator_numerical);
+    const denominator = this.fromNumerical(denominator_numerical);
+    assert(Math.floor(n) === n, "Numerator must be an integer");
+    assert(Math.floor(d) === d && d !== 0 , "Denominator must be a non-zero integer");
+    return `${numerator.getLabel(false)} ${denominator.reverse().getDenominator(n !== 1)}`;
   }
 
   inSameUnitAsNext(): boolean {
@@ -110,6 +101,15 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
   }
 
   setNames(): self {
+    let cursor = this;
+    while (cursor != null) {
+      cursor.setName();
+      cursor = cursor.next;
+    }
+    return this;
+  }
+
+  setName(): self {
     if (this.power % 3 === 1) {
       let value = this.value;
       if (this.next != null && this.value === 1 && this.next.power + 1 === this.power) {
