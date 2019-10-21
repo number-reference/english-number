@@ -78,7 +78,7 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
     const denominator = this.fromNumerical(denominator_numerical);
     assert(Math.floor(n) === n, "Numerator must be an integer");
     assert(Math.floor(d) === d && d !== 0 , "Denominator must be a non-zero integer");
-    return `${numerator.getLabel(false)} ${denominator.reverse().getDenominator(n !== 1)}`;
+    return `${numerator.getLabel(false)} ${denominator.getDenominator(!numerator.isOne())}`;
   }
 
   inSameUnitAsNext(): boolean {
