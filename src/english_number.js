@@ -57,7 +57,7 @@ const SCALES: string[] = [
  * Source: https://en.wikipedia.org/wiki/English_numerals
  */
 module.exports = class EnglishNumber extends AbstractNumericalUnit {
-  #name: string;
+  #word: string;
 
   static fromNumerical(numerical: numerical): this {
     return super.fromNumerical(numerical).setNames();
@@ -120,49 +120,49 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
       }
       switch (value) {
         case 1:
-          this.name = "Ten";
+          this.word = "Ten";
           break;
         case 2:
-          this.name = "Twenty";
+          this.word = "Twenty";
           break;
         case 3:
-          this.name = "Thirty";
+          this.word = "Thirty";
           break;
         case 4:
-          this.name = "Forty";
+          this.word = "Forty";
           break;
         case 5:
-          this.name = "Fifty";
+          this.word = "Fifty";
           break;
         case 6:
-          this.name = "Sixty";
+          this.word = "Sixty";
           break;
         case 7:
-          this.name = "Seventy";
+          this.word = "Seventy";
           break;
         case 8:
-          this.name = "Eighty";
+          this.word = "Eighty";
           break;
         case 9:
-          this.name = "Ninety";
+          this.word = "Ninety";
           break;
         case 11:
-          this.name = "Eleven";
+          this.word = "Eleven";
           break;
         case 12:
-          this.name = "Twelve";
+          this.word = "Twelve";
           break;
         case 13:
-          this.name = "Thirteen";
+          this.word = "Thirteen";
           break;
         case 15:
-          this.name = "Fifteen";
+          this.word = "Fifteen";
           break;
         default:
-          this.name = `${this.getUnit()}teen`;
+          this.word = `${this.getUnit()}teen`;
       }
     } else {
-      this.name = this.getUnit();
+      this.word = this.getUnit();
     }
     return this;
   }
@@ -184,7 +184,7 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
   }
 
   getLabel(ordinal: boolean): string {
-    let string = this.name;
+    let string = this.word;
     const modulus = this.power % 3;
 
     if (modulus === 2) {
