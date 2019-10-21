@@ -64,7 +64,18 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
   }
 
   static nameOf(numerical: numerical): string {
-    return EnglishNumber.fromNumerical(numerical).toString();
+    const original = this.fromNumerical(numerical);
+    const [whole_number, remainder] = original.split();
+    if (whole_number != null && remainder == null) {
+      return whole_number.getLabel(false);
+    }
+    if (whole_number == null && remainder != null) {
+      return remainder.getDecimalFraction();
+    }
+    if (whole_number != null && remainder != null) {
+      return `${whole_number.getLabel(false)} plus ${remainder.getDecimalFraction()}`;
+    }
+    return "Zero";
   }
 
   static orderOf(numerical: numerical): string {
@@ -227,11 +238,33 @@ module.exports = class EnglishNumber extends AbstractNumericalUnit {
     }
   }
 
-  separate(): [self, self] {
+  /*
+   * Returns a tuple of the whole number (1st element) separated from its fractional component (2nd)
+   */
+  split(): [?self, ?self] {
     let pointer = this;
-    while (pointer.next != null && pointer.power >= 0) {
+    if (this.power < 0) {
+      return [null, this];
+    }
+    while (pointer.next != null && pointer.next.power >= 0) {
       pointer = pointer.next;
     }
-    return [this, pointer.next];
+    const next = pointer.next;
+    pointer.next = null;
+    return [this, next];
+  }
+
+  getDecimalFraction(): string {
+    const lowest_power = this.tail().power;
+    const numerator = this.copy().shift(-lowest_power).setNames();
+    const denominator = this.tail().copy();
+    denominator.power *= -1;
+    denominator.value = 1;
+    denominator.setNames();
+    let denominator_phrase = denominator.getDenominator(!numerator.isOne());
+    if (denominator_phrase.slice(0, 4) === "One ") {
+      denominator_phrase = denominator_phrase.slice(4);
+    }
+    return `${numerator.getLabel(false)} ${denominator_phrase}`;
   }
 };
