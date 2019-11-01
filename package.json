@@ -2,7 +2,7 @@
   "name": "english-number",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/english_unit.js",
+  "main": "lib/english_number.js",
   "directories": {
     "lib": "lib",
     "src": "src"
