@@ -1,6 +1,6 @@
 {
   "name": "english-number",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "lib/english_number.js",
   "directories": {
